@@ -1,10 +1,17 @@
 import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Login from './pages/auth/Login'
+
 
 function App() {
 
   return (
    <>
-   <h1 className="font-medium hover:text-green-400 text-blue-600 text-xl">Hello World!</h1>
+   <BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<Login/>} />
+    </Routes>
+   </BrowserRouter>
    </>
   )
 }
