@@ -1,9 +1,17 @@
-import React from 'react'
+import HeroSection from "./sections/HeroSection";
+import FeaturesSection from "./sections/FeaturesSection";
+import FeaturedHostelsSection from "./sections/FeaturedHostelsSection";
+import HowItWorksSection from "./sections/HowItWorksSection";
+import CTASection from "./sections/CTASection";
 
-const Home = () => {
-  return (
-    <div className='mt-20'>Welcome to the Home page of Basobas</div>
-  )
+export default function Home() {
+    return (
+        <>
+            <HeroSection />
+            <FeaturesSection />
+            <FeaturedHostelsSection />
+            <HowItWorksSection />
+            <CTASection />
+        </>
+    );
 }
-
-export default Home
