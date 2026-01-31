@@ -1,60 +1,59 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { API } from "../http";
 import { STATUSES } from "../global/status";
-import { API } from "../http/index";
 
 const authSlice = createSlice({
-    name: "auth",
-    initialState: {
-        data: [],
-        status: STATUSES.IDLE,
-        token: localStorage.getItem("token") || "",
-    },
-    reducers: {
-        setUser: (state, action) => {
-            state.data = action.payload;
-        },
-        setStatus: (state, action) => {
-            state.status = action.payload;
-        },
-        setToken: (state, action) => {
-            state.token = action.payload;
-            if (action.payload) {
-                localStorage.setItem("token", action.payload);
-            } else {
-                localStorage.removeItem("token");
+      name: "auth",
+      initialState:{
+            data: [],
+            status: STATUSES.IDLE,
+            // token: "",
+            token: localStorage.getItem("token") || ""
+      },
+      reducers:{
+            setUser: (state, action)=>{
+                  state.data = action.payload;
+            },
+            setStatus: (state, action)=>{
+                  state.status = action.payload;
+            },
+            setToken: (state, action)=>{
+                  state.token = action.payload;
+                  if(action.payload){
+                        localStorage.setItem("token", action.payload)
+                  } else {
+                        localStorage.removeItem("token")
+                  }
+            },
+            logOut: (state)=>{
+                  state.data = [],
+                  state.token = "",
+                  localStorage.removeItem("token"),
+                  localStorage.removeItem("userId"),
+                  state.status = STATUSES.IDLE
+            },
+            resetAuthStatus:(state)=>{
+                  state.status = STATUSES.LOADING
             }
-        },
-    },
-});
+      }
+})
 
-export const { setUser, setStatus, setToken } = authSlice.actions;
+export const { setUser, setStatus, setToken, logOut, resetAuthStatus} = authSlice.actions;
 export default authSlice.reducer;
 
-export function registerUser(data) {
-    return async function registerUserThunk(dispatch) {
-        dispatch(setStatus(STATUSES.LOADING));
-        try {
-            const response = await API.post("/auth/register", data);
-            console.log("Register Response:", response.data);
-            dispatch(setStatus(STATUSES.SUCCESS));
-        } catch (error) {
-            console.log("Failed to register user:", error.response?.data);
-            dispatch(setStatus(STATUSES.ERROR));
-        }
-    };
-}
-
-export function loginUser(data) {
-    return async function loginUserThunk(dispatch) {
-        dispatch(setStatus(STATUSES.LOADING));
-        try {
-            const response = await API.post("/auth/login", data);
-            dispatch(setUser(response.data.data));
-            dispatch(setToken(response.data.token));
-            dispatch(setStatus(STATUSES.SUCCESS));
-        } catch (error) {
-            console.log("Failed to login user:", error);
-            dispatch(setStatus(STATUSES.ERROR));
-        }
-    };
+export function registerUser(data){
+      return async function registerUserThunk(dispatch){
+            dispatch(setStatus(STATUSES.LOADING))
+            try{
+                  const response = await API.post("/auth/register", data)
+                  if(response.status === 201){
+                        console.log("Registration Response:", response.data.data.role);
+                        dispatch(setStatus(STATUSES.SUCCESS))
+                  }
+            } catch(error){
+                  console.error("Registration Error:", error);
+                  dispatch(setStatus(STATUSES.ERROR))
+                  throw error;
+            }
+      }
 }

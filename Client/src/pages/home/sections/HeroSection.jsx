@@ -16,16 +16,16 @@ export default function HeroSection() {
 
     return (
         <section className="relative pt-24 pb-20 overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-60"></div>
+            <div className="absolute inset-0 bg-linear-to-br from-blue-50 via-purple-50 to-pink-50 opacity-60"></div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-8">
-                        <div className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm">
+                        <div className="inline-block bg-linear-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm">
                             🎓 Your Academic Home Away From Home
                         </div>
                         <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight">
                             Find Your Perfect{" "}
-                            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                            <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                                 Student Hostel
                             </span>
                         </h1>
@@ -97,7 +97,7 @@ export default function HeroSection() {
                             </div>
                             <button
                                 type="submit"
-                                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all flex items-center justify-center gap-2"
+                                className="w-full bg-linear-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-xl transition-all flex items-center justify-center gap-2"
                             >
                                 <Search className="w-5 h-5" />
                                 Search Hostels
@@ -111,7 +111,7 @@ export default function HeroSection() {
                         <img
                             src="https://images.unsplash.com/photo-1722912010170-704c382ca530?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxBc2lhbiUyMHN0dWRlbnRzJTIwZ3JvdXAlMjBzdHVkeWluZ3xlbnwxfHx8fDE3Njk0ODIyMjd8MA&ixlib=rb-4.1.0&q=80&w=1080"
                             alt="Students studying together"
-                            className="relative rounded-3xl shadow-2xl w-full h-[600px] object-cover"
+                            className="relative rounded-3xl shadow-2xl w-full h-150 object-cover"
                         />
                     </div>
                 </div>

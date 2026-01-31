@@ -41,9 +41,9 @@ export default function FeaturesSection() {
                         return (
                             <div
                                 key={index}
-                                className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl hover:shadow-xl transition-all border border-gray-100 hover:border-blue-200"
+                                className="bg-linear-to-br from-gray-50 to-white p-8 rounded-2xl hover:shadow-xl transition-all border border-gray-100 hover:border-blue-200"
                             >
-                                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mb-4">
+                                <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-white mb-4">
                                     <IconComponent className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
