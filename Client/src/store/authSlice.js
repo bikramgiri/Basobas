@@ -57,3 +57,22 @@ export function registerUser(data){
             }
       }
 }
+
+export function loginUser(data){
+      return async function loginUserThunk(dispatch){
+            dispatch(setStatus(STATUSES.LOADING))
+            try {
+                  const response = await API.post("/auth/login", data)
+                  if(response.status === 200){
+                        dispatch(setUser(response.data.data))
+                        localStorage.setItem("user", JSON.stringify(response.data.data))
+                        dispatch(setToken(response.data.token))
+                        dispatch(setStatus(STATUSES.SUCCESS))
+                  }
+            } catch (error) {
+                  console.log("Login Error:", error)
+                  dispatch(setStatus(STATUSES.ERROR))
+                  throw error;
+            }
+      }
+}
