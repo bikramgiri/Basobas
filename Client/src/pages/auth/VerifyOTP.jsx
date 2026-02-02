@@ -61,7 +61,6 @@ const VerifyOTP = () => {
       return;
     }
 
-    // check opt must be 6 digit number
     const otpRegex = /^\d{6}$/;
     if (!otpRegex.test(userData.otp)) {
       newErrors.otp = "OTP must be a 6-digit number";

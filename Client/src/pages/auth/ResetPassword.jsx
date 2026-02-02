@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { resetPassword } from "../../store/authSlice";
 import { Eye, EyeOff, Loader2, Lock, Mail, Key } from "lucide-react"; // ← Added Key
 import { toast } from "../../utils/toast";
@@ -253,7 +252,6 @@ const ResetPassword = () => {
             />
           </div>
 
-          {/* New Password */}
           <div className="relative">
             <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 mb-1.5">
               New Password
@@ -280,7 +278,6 @@ const ResetPassword = () => {
               )}
             </button>
 
-            {/* Password Strength */}
             {userData.newPassword && (
               <div className="mt-2">
                 <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
@@ -308,7 +305,6 @@ const ResetPassword = () => {
             )}
           </div>
 
-          {/* Confirm Password */}
           <div className="relative">
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1.5">
               Confirm Password
@@ -335,7 +331,6 @@ const ResetPassword = () => {
               )}
             </button>
 
-             {/* Password Strength */}
             {userData.confirmPassword && (
               <div className="mt-2">
                 <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
