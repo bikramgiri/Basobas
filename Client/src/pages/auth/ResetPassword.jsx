@@ -4,7 +4,7 @@ import { resetPassword } from "../../store/authSlice";
 import { Eye, EyeOff, Loader2, Lock, Mail, Key } from "lucide-react"; // ← Added Key
 import { toast } from "../../utils/toast";
 import { useDispatch, useSelector } from "react-redux";
-import { STATUSES } from "../../global/statuses";
+import { STATUSES } from "../../global/status";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
