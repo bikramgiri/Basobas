@@ -6,68 +6,68 @@ import { Eye, EyeOff, Lock, LogIn, Mail, UserIcon, UserPlus } from 'lucide-react
 
 const AuthForm = ({ type = "login || register", onSubmit, onChange, values, value, passwordStrength }) => {
 
-const heroSlides = [
-  {
-    title: "Unforgettable Views",
-    subtitle: "Relax on stunning rooftops with city skylines",
-    image: "https://images.pexels.com/photos/27903662/pexels-photo-27903662.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  },
-  {
-    title: "Warm Welcome Awaits",
-    subtitle: "Friendly check-in and helpful staff ready to assist",
-    image: "https://images.pexels.com/photos/4907442/pexels-photo-4907442.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  },
-  {
-    title: "Global Community",
-    subtitle: "Meet diverse travelers and make lifelong friends",
-    image: "https://eastseven.de/wp-content/uploads/2024/04/40_LIUC_EastSeven_1054-1024x683.jpg",
-  },
-  {
-    title: "Evening Social Gatherings",
-    subtitle: "Join rooftop parties and unforgettable hostel events",
-    image: "https://eastseven.de/wp-content/uploads/2023/10/backpacker-hostel-berlin-community-abend-1024x640.jpeg.webp",
-  },
-  {
-    title: "Discover Your Ideal Hostel Haven",
-    subtitle: "Budget-friendly comfort designed for adventurers and students",
-    image: "https://images.pexels.com/photos/4907229/pexels-photo-4907229.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  },
-  {
-    title: "Vibrant Shared Spaces",
-    subtitle: "Spark connections in cozy, welcoming common areas",
-    image: "https://junglecampsindia.com/wp-content/uploads/2024/07/3-2.webp",
-  },
-  {
-    title: "Breathtaking Rooftop Escapes", //
-    subtitle: "Unwind with stunning city views and fresh air",
-    image: "https://images.pexels.com/photos/27903662/pexels-photo-27903662.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  },
-  {
-    title: "Heartfelt Hospitality Awaits",
-    subtitle: "Warm welcomes and dedicated support from day one",
-    image: "https://images.pexels.com/photos/4907442/pexels-photo-4907442.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  },
-  {
-    title: "A Thriving Global Community",
-    subtitle: "Forge lifelong friendships with travelers from everywhere",
-    image: "https://eastseven.de/wp-content/uploads/2024/04/40_LIUC_EastSeven_1054-1024x683.jpg",
-  },
-  {
-    title: "Electric Evening Vibes", //
-    subtitle: "Dive into lively events and unforgettable rooftop nights",
-    image: "https://eastseven.de/wp-content/uploads/2023/10/backpacker-hostel-berlin-community-abend-1024x640.jpeg.webp",
-  },
-  {
-    title: "Instant & Easy Booking", //
-    subtitle: "Reserve your perfect bed in seconds – hassle-free",
-    image: "https://miro.medium.com/v2/resize:fit:1200/0*mBCLcIQVg-qmrsKu.jpg",
-  },
-  {
-    title: "24/7 Friendly Support", //
-    subtitle: "Our team is always here to make your stay perfect",
-    image: "https://images.pexels.com/photos/5137969/pexels-photo-5137969.jpeg",
-  }
-];
+  const heroSlides = [
+    {
+      title: "Unforgettable Views",
+      subtitle: "Relax on stunning rooftops with city skylines",
+      image: "https://images.pexels.com/photos/27903662/pexels-photo-27903662.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    },
+    {
+      title: "Warm Welcome Awaits",
+      subtitle: "Friendly check-in and helpful staff ready to assist",
+      image: "https://images.pexels.com/photos/4907442/pexels-photo-4907442.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    },
+    {
+      title: "Global Community",
+      subtitle: "Meet diverse travelers and make lifelong friends",
+      image: "https://eastseven.de/wp-content/uploads/2024/04/40_LIUC_EastSeven_1054-1024x683.jpg",
+    },
+    {
+      title: "Evening Social Gatherings",
+      subtitle: "Join rooftop parties and unforgettable hostel events",
+      image: "https://eastseven.de/wp-content/uploads/2023/10/backpacker-hostel-berlin-community-abend-1024x640.jpeg.webp",
+    },
+    {
+      title: "Discover Your Ideal Hostel Haven",
+      subtitle: "Budget-friendly comfort designed for adventurers and students",
+      image: "https://images.pexels.com/photos/4907229/pexels-photo-4907229.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    },
+    {
+      title: "Vibrant Shared Spaces",
+      subtitle: "Spark connections in cozy, welcoming common areas",
+      image: "https://junglecampsindia.com/wp-content/uploads/2024/07/3-2.webp",
+    },
+    {
+      title: "Breathtaking Rooftop Escapes", //
+      subtitle: "Unwind with stunning city views and fresh air",
+      image: "https://images.pexels.com/photos/27903662/pexels-photo-27903662.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    },
+    {
+      title: "Heartfelt Hospitality Awaits",
+      subtitle: "Warm welcomes and dedicated support from day one",
+      image: "https://images.pexels.com/photos/4907442/pexels-photo-4907442.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    },
+    {
+      title: "A Thriving Global Community",
+      subtitle: "Forge lifelong friendships with travelers from everywhere",
+      image: "https://eastseven.de/wp-content/uploads/2024/04/40_LIUC_EastSeven_1054-1024x683.jpg",
+    },
+    {
+      title: "Electric Evening Vibes", //
+      subtitle: "Dive into lively events and unforgettable rooftop nights",
+      image: "https://eastseven.de/wp-content/uploads/2023/10/backpacker-hostel-berlin-community-abend-1024x640.jpeg.webp",
+    },
+    {
+      title: "Instant & Easy Booking", //
+      subtitle: "Reserve your perfect bed in seconds – hassle-free",
+      image: "https://miro.medium.com/v2/resize:fit:1200/0*mBCLcIQVg-qmrsKu.jpg",
+    },
+    {
+      title: "24/7 Friendly Support", //
+      subtitle: "Our team is always here to make your stay perfect",
+      image: "https://images.pexels.com/photos/5137969/pexels-photo-5137969.jpeg",
+    }
+  ];
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -85,13 +85,12 @@ const heroSlides = [
         {heroSlides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === 0 ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{ 
-              animation: index === 0 
-                ? 'none' 
-                : `fadeSlide 70s infinite ${index * 4}s` 
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100' : 'opacity-0'
+              }`}
+            style={{
+              animation: index === 0
+                ? 'none'
+                : `fadeSlide 70s infinite ${index * 4}s`
             }}
           >
             <div
@@ -140,13 +139,13 @@ const heroSlides = [
             {/* {message && <p className="text-green-500 text-center mb-4">{message}</p>} */}
             {/* {errors?.general && <p className="text-red-500 text-center mb-4">{errors.general}</p>} */}
             <Link to="/" className="inline-flex items-center gap-2 mb-1">
-            <div className="w-9 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-2xl">B</span>
-            </div>
-            <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Basobas
-            </span>
-          </Link>
+              <div className="w-9 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-2xl">B</span>
+              </div>
+              <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Basobas
+              </span>
+            </Link>
             <p className="text-lg sm:text-lg font-bold text-gray-700 mb-1.5">
               {type === "login"
                 ? "Welcome Back"
@@ -169,22 +168,20 @@ const heroSlides = [
                     <button
                       type="button"
                       onClick={() => value({ ...values, role: "user" })}
-                      className={`cursor-pointer p-2 border-2 rounded-lg font-medium transition-all ${
-                        values.role === "user"
+                      className={`cursor-pointer p-2 border-2 rounded-lg font-medium transition-all ${values.role === "user"
                           ? "border-blue-600 bg-blue-50 text-blue-700"
                           : "border-gray-300 text-gray-700 hover:border-gray-400"
-                      }`}
+                        }`}
                     >
                       Student
                     </button>
                     <button
                       type="button"
                       onClick={() => value({ ...values, role: "hosteler" })}
-                      className={`cursor-pointer p-2 border-2 rounded-lg font-medium transition-all ${
-                        values.role === "hosteler"
+                      className={`cursor-pointer p-2 border-2 rounded-lg font-medium transition-all ${values.role === "hosteler"
                           ? "border-purple-600 bg-purple-50 text-purple-700"
                           : "border-gray-300 text-gray-700 hover:border-gray-400"
-                      }`}
+                        }`}
                     >
                       Hostel Owner
                     </button>
@@ -251,7 +248,7 @@ const heroSlides = [
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/9 flex items-center text-gray-500 hover:text-green-600 focus:outline-none"
-                // className="cursor-pointer absolute inset-y-0 right-0 mt-6 flex items-center pr-4 text-gray-500 hover:text-green-600 focus:outline-none"
+              // className="cursor-pointer absolute inset-y-0 right-0 mt-6 flex items-center pr-4 text-gray-500 hover:text-green-600 focus:outline-none"
               >
                 {showPassword ? (
                   <Eye className="h-5 w-5" />
@@ -259,36 +256,37 @@ const heroSlides = [
                   <EyeOff className="h-5 w-5" />
                 )}
               </button>
-              <div className="mt-2">
-                {values.password && (
-                  <div className="mt-2">
-                    <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full transition-all duration-300 ${passwordStrength.color}`}
-                        style={{
-                          width: `${(passwordStrength.score / 6) * 100}%`,
-                        }}
-                      />
+              {type !== "login" && (
+                <div className="mt-2">
+                  {values.password && (
+                    <div className="mt-2">
+                      <div className="h-1 w-full bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className={`h-full transition-all duration-300 ${passwordStrength.color}`}
+                          style={{
+                            width: `${(passwordStrength.score / 6) * 100}%`,
+                          }}
+                        />
+                      </div>
+                      <p
+                        className={`text-sm ${passwordStrength.label === "Weak"
+                            ? "text-red-600"
+                            : passwordStrength.label === "Fair"
+                              ? "text-orange-600"
+                              : passwordStrength.label === "Good"
+                                ? "text-yellow-600"
+                                : passwordStrength.label === "Strong"
+                                  ? "text-green-600"
+                                  : "text-indigo-600"
+                          }`}
+                      >
+                        Password Strength:{" "}
+                        {passwordStrength.label || "Enter password"}
+                      </p>
                     </div>
-                    <p
-                      className={`text-sm ${
-                        passwordStrength.label === "Weak"
-                          ? "text-red-600"
-                          : passwordStrength.label === "Fair"
-                            ? "text-orange-600"
-                            : passwordStrength.label === "Good"
-                              ? "text-yellow-600"
-                              : passwordStrength.label === "Strong"
-                                ? "text-green-600"
-                                : "text-indigo-600"
-                      }`}
-                    >
-                      Password Strength:{" "}
-                      {passwordStrength.label || "Enter password"}
-                    </p>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
 
             <div
@@ -340,9 +338,9 @@ const heroSlides = [
 
             <button
               type="submit"
-                 className="cursor-pointer w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {type === "login"? (<LogIn className="size-5" />): (<UserPlus className="size-5" />)}
+              {type === "login" ? (<LogIn className="size-5" />) : (<UserPlus className="size-5" />)}
               {type === "login" ? "Sign In" : "Create Account"}
             </button>
           </form>
