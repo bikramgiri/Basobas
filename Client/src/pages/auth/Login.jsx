@@ -10,7 +10,7 @@ import { STATUSES } from "../../global/status";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {status, token} = useSelector((state) => state.auth);
+  const {status, token, data: user} = useSelector((state) => state.auth);
 
   const [userData, setUserData] = useState({
     email: "",
@@ -23,69 +23,10 @@ const Login = () => {
     general: "",
   });
 
-    const [passwordStrength, setPasswordStrength] = useState({
-      score: 0,
-      label: "",
-      color: "bg-gray-200",
-    });
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "", general: "" }));
-
-    if (name === "password") {
-      calculatePasswordStrength(value);
-    }
-  };
-
-    // Password strength calculation function
-  const calculatePasswordStrength = (password) => {
-    if (!password) {
-      setPasswordStrength({ score: 0, label: "", color: "bg-gray-200" });
-      return;
-    }
-
-    let score = 0;
-
-    if (password.length >= 8) score += 1;
-    if (password.length >= 12) score += 1;
-
-    if (/[A-Z]/.test(password)) score += 1;
-    if (/[a-z]/.test(password)) score += 1;
-    if (/\d/.test(password)) score += 1;
-    if (/[^A-Za-z0-9]/.test(password)) score += 1;
-
-    let label = "";
-    let color = "";
-
-    switch (true) {
-      case score <= 2:
-        label = "Weak";
-        color = "bg-red-500";
-        break;
-      case score === 3:
-        label = "Fair";
-        color = "bg-orange-500";
-        break;
-      case score === 4:
-        label = "Good";
-        color = "bg-yellow-500";
-        break;
-      case score === 5:
-        label = "Strong";
-        color = "bg-green-500";
-        break;
-      case score >= 6:
-        label = "Very Strong";
-        color = "bg-indigo-600";
-        break;
-      default:
-        label = "";
-        color = "bg-gray-200";
-    }
-
-    setPasswordStrength({ score, label, color });
   };
 
   const validateEmail = (email) => {
@@ -158,23 +99,21 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (status === STATUSES.SUCCESS && token) {
+    if (status === STATUSES.SUCCESS && token && user) {
+      toast("Login successful!", "success");
       setTimeout(() => {
-      toast("Login successful");
-      setTimeout(() => {
-        navigate("/");
+        if (user.role === 'user') {
+          navigate("/");
+        } else if (user.role === 'hosteler') {
+          navigate("/hosteler-dashboard");
+        } else if (user.role === 'admin') {
+          navigate("/admin-dashboard");
+        }
       }, 2000);
-      }, 0);
       dispatch(resetAuthStatus());
     } else if (status === STATUSES.ERROR) {
-      if (!errors.general) {
-        setTimeout(() => {
-          setErrors((prev) => ({
-            ...prev,
-            general: "Login failed!",
-          }));
-        }, 0);
-      }
+      toast("Login failed. Please check your credentials.", "error");
+      dispatch(resetAuthStatus());
     }
 
     const queryParams = new URLSearchParams(window.location.search);
@@ -187,7 +126,7 @@ const Login = () => {
       }, 0); 
       dispatch(resetAuthStatus());
     }
-  }, [navigate, status, errors, token, dispatch]);
+  }, [navigate, status, errors, token, user,  dispatch]);
 
   return (
     <>
@@ -198,7 +137,6 @@ const Login = () => {
         values={userData}
         errors={errors}
         message={toast}
-        passwordStrength={passwordStrength}
       />
     </>
   );

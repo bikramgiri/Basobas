@@ -97,7 +97,6 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
               className="h-full w-full bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              {/* Dark overlay for readability */}
               <div className="absolute inset-0 bg-black/50"></div>
 
               {/* Content */}
@@ -136,8 +135,6 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
       <div className="w-full lg:w-[40%] flex items-center justify-center  py-10 lg:py-0 bg-green-100">
         <div className="bg-white p-6 sm:p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md sm:max-w-md lg:max-w-md border border-gray-200">
           <div className="text-center">
-            {/* {message && <p className="text-green-500 text-center mb-4">{message}</p>} */}
-            {/* {errors?.general && <p className="text-red-500 text-center mb-4">{errors.general}</p>} */}
             <Link to="/" className="inline-flex items-center gap-2 mb-1">
               <div className="w-9 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-2xl">B</span>
@@ -151,18 +148,12 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                 ? "Welcome Back"
                 : "Create Account"}
             </p>
-            {/* <p className="text-sm sm:text-base text-gray-600">
-              {type === "login"
-                ? "Welcome back! Please enter your details."
-                : "Join Basobas Hub and start your journey with us."}
-            </p> */}
           </div>
 
           {/* Form */}
           <form onSubmit={onSubmit} className="space-y-2 mt-6">
             {type !== "login" && (
               <>
-                {/* Role Selection */}
                 <div>
                   <div className="grid grid-cols-2 gap-3 mb-4">
                     <button
@@ -248,7 +239,6 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 className="cursor-pointer absolute right-3 top-1/2 -translate-y-1/9 flex items-center text-gray-500 hover:text-green-600 focus:outline-none"
-              // className="cursor-pointer absolute inset-y-0 right-0 mt-6 flex items-center pr-4 text-gray-500 hover:text-green-600 focus:outline-none"
               >
                 {showPassword ? (
                   <Eye className="h-5 w-5" />
@@ -256,6 +246,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                   <EyeOff className="h-5 w-5" />
                 )}
               </button>
+
               {type !== "login" && (
                 <div className="mt-2">
                   {values.password && (
@@ -370,9 +361,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
               </div>
             </div>
 
-            {/* Responsive social buttons - stack on mobile, grid on sm+ */}
             <div className="mt-2.5 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Google */}
               <button
                 onClick={() =>
                   window.open("http://localhost:4000/auth/google", "_self")
