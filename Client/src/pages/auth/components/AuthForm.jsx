@@ -79,7 +79,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-500 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-purple-50 to-pink-500 flex flex-col lg:flex-row">
       {/* Hero Section - Full width on mobile, side-by-side on lg+, with slideshow effect */}
       <div className="relative w-full lg:w-[60%] h-96 sm:h-screen overflow-hidden">
         {heroSlides.map((slide, index) => (
@@ -113,7 +113,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       to="/hostels"
-                      className="px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-xl transition-all hover:shadow-xl"
+                      className="px-10 py-4 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-xl transition-all hover:shadow-xl"
                     >
                       Browse Hostels
                     </Link>
@@ -136,10 +136,10 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
         <div className="bg-white p-6 sm:p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md sm:max-w-md lg:max-w-md border border-gray-200">
           <div className="text-center">
             <Link to="/" className="inline-flex items-center gap-2 mb-1">
-              <div className="w-9 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-10 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-2xl">B</span>
               </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-3xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Basobas
               </span>
             </Link>
@@ -329,7 +329,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
 
             <button
               type="submit"
-              className="cursor-pointer w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full py-3 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {type === "login" ? (<LogIn className="size-5" />) : (<UserPlus className="size-5" />)}
               {type === "login" ? "Sign In" : "Create Account"}
@@ -368,20 +368,20 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                 }
                 className="cursor-pointer flex items-center justify-center gap-3 bg-blue-100 border border-gray-300 rounded-lg py-3.5 px-4 shadow-sm hover:bg-blue-200 transition-colors text-sm font-medium text-gray-700"
               >
-                <FcGoogle className="h-6 w-6 flex-shrink-0" />
+                <FcGoogle className="h-6 w-6 shrink-0" />
                 Google
               </button>
 
               {/* Facebook */}
               <button className="cursor-pointer flex items-center justify-center gap-3 bg-blue-100 border border-gray-300 rounded-lg py-3.5 px-4 shadow-sm hover:bg-blue-200 transition-colors text-sm font-medium text-gray-700">
-                <FaFacebook className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <FaFacebook className="h-6 w-6 text-blue-600 shrink-0" />
                 Facebook
               </button>
 
               {/* GitHub */}
               <button className="cursor-pointer flex items-center justify-center gap-3 bg-blue-100 border border-gray-300 rounded-lg py-3.5 px-4 shadow-sm hover:bg-blue-200 transition-colors text-sm font-medium text-gray-700">
                 <svg
-                  className="h-6 w-6 text-gray-900 flex-shrink-0"
+                  className="h-6 w-6 text-gray-900 shrink-0"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >
