@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../model/userModel");
-const sendEmail = require("../services/sendEmail");
+const User = require("../../model/user/userModel");
+const sendEmail = require("../../services/sendEmail");
 
 // User Register
 exports.userRegister = async (req, res) => {
@@ -36,15 +36,6 @@ exports.userRegister = async (req, res) => {
       field: "email",
     });
   }
-
-  // const passwordRegex =
-  //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  // if (!passwordRegex.test(password)) {
-  //   return res.status(400).json({
-  //     message:"Password must be at least 8 characters long and include at least one letter, one number, and one special character.",
-  //     field: "password",
-  //   });
-  // }
 
   if (password.length < 8) {
     return res.status(400).json({
@@ -108,22 +99,6 @@ exports.userLogin = async (req, res) => {
       });
     }
 
-    // const passwordRegex =
-    //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-    // if (!passwordRegex.test(password)) {
-    //   return res.status(400).json({
-    //     message:"Password must be at least 8 characters long and include at least one letter, one number, and one special character.",
-    //     field: "password",
-    //   });
-    // }
-
-    if (password.length < 8) {
-    return res.status(400).json({
-      message: "Password must be at least 8 characters.",
-      field: "password",
-    });
-  }
-
     const passwordMatch = bcrypt.compareSync(password, existingUser.password);
     if (!passwordMatch) {
       return res.status(400).json({
@@ -133,7 +108,7 @@ exports.userLogin = async (req, res) => {
     }
 
     const token = jwt.sign({ userId: existingUser._id },process.env.JWT_SECRET,{
-        expiresIn: "2d",
+        expiresIn: "1d",
       },
     );
 
@@ -141,7 +116,7 @@ exports.userLogin = async (req, res) => {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 2 * 24 * 60 * 60 * 1000, 
+      maxAge: 1 * 24 * 60 * 60 * 1000, 
     });
 
     res.status(200).json({
@@ -315,22 +290,6 @@ exports.resetPassword = async (req, res) => {
   existingUser.otp = otp;
   existingUser.otpGeneratedTime = Date.now();
   await existingUser.save();
-
-  // const passwordRegex =
-  //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-  // if (!passwordRegex.test(newPassword)) {
-  //   return res.status(400).json({
-  //     message:"Password must be at least 8 characters long and include at least one letter, one number, and one special character.",
-  //     field: "password",
-  //   });
-  // }
-
-  if (newPassword.length < 8) {
-    return res.status(400).json({
-      message: "Password must be at least 8 characters.",
-      field: "password",
-    });
-  }
 
   if (newPassword !== confirmPassword) {
     return res.status(400).json({

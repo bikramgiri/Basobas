@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const User = require("./model/userModel");
+const User = require("./model/user/userModel");
 
 const adminSeeder = async () => {
   const adminExists = await User.findOne({ 

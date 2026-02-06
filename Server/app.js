@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors")
+const adminSeeder = require("./adminSeeder");
 const { connectDatabase } = require("./database/database");
 const app = express();
 
@@ -14,17 +15,18 @@ app.use(cors({
 // Database connection
 connectDatabase();
 
-// *Admin Seeder
-const adminSeeder = require("./adminSeeder");
+// Admin Seeder
 adminSeeder();
 
 // Routes
 const authRoutes = require("./routes/auth/authRoutes")
+const hostelRoutes = require("./routes/hosteler/hostelRoutes")
 
 // Using Routes
 app.use("/auth", authRoutes)
+app.use("/hosteler", hostelRoutes)
 
 const PORT = process.env.PORT
-const server = app.listen(PORT, ()=>{
+app.listen(PORT, ()=>{
       console.log(`Server is running on port ${PORT}`);
 })
