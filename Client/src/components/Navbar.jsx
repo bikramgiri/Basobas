@@ -1,30 +1,28 @@
 import { useEffect, useState, useRef } from "react";
-import { ShoppingCart, Menu, X, Search, Heart, LogOut, Settings, Bell, ArrowRight } from "lucide-react";
+import { Menu, X, Search, Heart, LogOut, Settings, Bell, LayoutDashboard } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { CgProfile } from "react-icons/cg";
-import { GrDashboard } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../store/authSlice";
 import { toast } from "../utils/toast";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);           
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); 
-  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const notificationsRef = useRef(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, token } = useSelector((state) => state.auth);
-  
-  const unreadNotifications = 2;   
-  const favouritesCount = 5;      
- 
+
+  const unreadNotifications = 2;
+  const favouritesCount = 5;
+
   // Persistent login state
   const storedToken = localStorage.getItem("token");
   const storedUser = JSON.parse(localStorage.getItem("user") || "null");
-  
+
   const effectiveToken = token || storedToken;
   const effectiveUser = user || storedUser;
 
@@ -101,21 +99,21 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-xl">B</span>
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold text-gray-900">
               Basobas
             </span>
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden lg:flex items-center gap-8">
-            <Link to="/" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              Home
+          <div className="hidden md:flex items-center gap-6">
+            <Link to="/for-students" className="text-gray-600 hover:text-gray-900 transition-colors">
+              For Students
             </Link>
-            <Link to="/explore-hostels" className="text-gray-700 hover:text-blue-600 font-medium transition-colors">
-              Explore Hostels
+            <Link to="/list-property" className="text-gray-600 hover:text-gray-900 transition-colors">
+              List Your Property
             </Link>
           </div>
 
@@ -151,7 +149,7 @@ const Navbar = () => {
 
                   {isNotificationsOpen && (
                     <div className="absolute right-0 mt-3 w-80 bg-white rounded-xl shadow-2xl border border-gray-200 overflow-hidden z-50">
-                      <div className="flex items-center justify-between px-5 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white">
+                      <div className="flex items-center justify-between px-5 py-3 bg-linear-to-r from-purple-600 to-purple-700 text-white">
                         <h3 className="font-semibold">Notifications</h3>
                         <button
                           onClick={markAllAsRead}
@@ -163,7 +161,7 @@ const Navbar = () => {
 
                       <div className="max-h-96 overflow-y-auto">
                         <div className="cursor-pointer p-4 border-b border-gray-100 hover:bg-purple-50 transition-colors flex gap-3">
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                               <span className="text-blue-600 text-xl">✓</span>
                             </div>
@@ -182,7 +180,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="cursor-pointer p-4 border-b border-gray-100 hover:bg-purple-50 transition-colors flex gap-3">
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
                               <span className="text-purple-600 text-xl">%</span>
                             </div>
@@ -202,7 +200,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="cursor-pointer p-4 hover:bg-purple-50 transition-colors flex gap-3">
-                          <div className="flex-shrink-0">
+                          <div className="shrink-0">
                             <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
                               <span className="text-blue-600 text-xl">$</span>
                             </div>
@@ -259,7 +257,7 @@ const Navbar = () => {
                   <Link to="/login" className="px-5 py-2 text-blue-700 border-2 border-blue-700 rounded-lg hover:bg-blue-50 font-medium transition-colors">
                     Login
                   </Link>
-                  <Link to="/register" className="px-5 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-colors shadow-sm">
+                  <Link to="/register" className="px-5 py-2 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700 transition-colors shadow-sm">
                     Register
                   </Link>
                 </>
@@ -273,7 +271,7 @@ const Navbar = () => {
                     {renderAvatar("small")}
                   </button>
 
-                 {isDropdownOpen && (
+                  {isDropdownOpen && (
                     <div className="absolute right-0 mt-3 w-66 bg-white rounded-md shadow-xl border border-gray-300 py-2 z-50">
                       <div className="px-5 py-4 border-b border-gray-300">
                         <div className="flex items-center gap-3">
@@ -295,10 +293,10 @@ const Navbar = () => {
                           className="flex gap-3 font-medium items-center px-5 py-2 text-gray-900 hover:bg-green-100 hover:text-blue-700 transition-colors"
                           onClick={() => setIsDropdownOpen(false)}
                         >
-                          <GrDashboard className="h-7 w-7" />
+                          <LayoutDashboard className="h-7 w-7" />
                           Dashboard
                         </Link>
-                  
+
                         <Link
                           to="/wishlist"
                           className="flex gap-3 font-medium items-center px-5 py-2 text-gray-900 hover:bg-blue-100 hover:text-blue-700 transition-colors"
@@ -343,10 +341,10 @@ const Navbar = () => {
         </div>
       </div>
 
-   
+
       <div className={`fixed inset-0 z-40 transition-all duration-300 ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
         {/* Backdrop */}
-        <div 
+        <div
           className={`absolute inset-0 bg-black/50 transition-opacity ${isOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setIsOpen(false)}
         />
@@ -364,22 +362,22 @@ const Navbar = () => {
 
             {!isLoggedIn ? (
               <div className="space-y-3">
-            <Link to="/home" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
-            <Link to="/explore-hostels" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
-              Explore Hostels
-            </Link>
+                <Link to="/for-students" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  For Students
+                </Link>
+                <Link to="/list-property" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  List Your Property
+                </Link>
 
                 <Link to="/login" className="block w-full text-center py-3 text-blue-700 border-2 border-blue-700 rounded-lg hover:bg-blue-50 font-medium" onClick={() => setIsOpen(false)}>
                   Login
                 </Link>
-                <Link to="/register" className="block w-full text-center py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700" onClick={() => setIsOpen(false)}>
+                <Link to="/register" className="block w-full text-center py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-purple-700" onClick={() => setIsOpen(false)}>
                   Register
                 </Link>
               </div>
             ) : (
-             <div className="">
+              <div className="">
                 <div className="flex items-center px-2 py-2 border-b border-gray-300">
                   <div className="flex items-center gap-3 pb-2">
                     {renderAvatar("large")}
@@ -393,8 +391,8 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
-               
-               <Link
+
+                <Link
                   to={getDashboardPath()}
                   className="block font-medium py-3 px-3 text-gray-900 hover:text-blue-700 hover:bg-gray-200 rounded-lg transition-colors"
                   onClick={() => setIsOpen(false)}
@@ -410,12 +408,12 @@ const Navbar = () => {
                   Settings
                 </Link>
 
-                <Link to="/home" className="block px-3 py-2 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
-              Home
-            </Link>
-            <Link to="/explore-hostels" className="border-b border-gray-300 block px-3 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
-              Explore Hostels
-            </Link>
+                <Link to="/for-students" className="block px-3 py-2 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  For Students
+                </Link>
+                <Link to="/list-property" className="border-b border-gray-300 block px-3 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  List Your Property
+                </Link>
 
                 <button
                   onClick={handleLogOut}

@@ -29,7 +29,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <section className="py-20 bg-linear-to-br from-blue-50 via-purple-50 to-pink-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -55,7 +55,7 @@ const Features = () => {
               transition-shadow duration-500
               "
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex justify-items-center items-center justify-center text-white mb-4">
+              <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-purple-600 rounded-2xl flex justify-items-center items-center justify-center text-white mb-4">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-2">

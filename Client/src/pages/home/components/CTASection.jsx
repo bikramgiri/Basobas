@@ -2,9 +2,9 @@ import React from 'react'
 
 const CTASection = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <section className="py-16 bg-linear-to-br from-blue-50 via-purple-50 to-pink-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl py-16 px-8">
+        <div className="bg-linear-to-br from-blue-600 via-purple-600 to-pink-600 rounded-3xl py-16 px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Ready to Focus on Your Studies?

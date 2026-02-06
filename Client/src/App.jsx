@@ -18,36 +18,36 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/verifyotp" element={<VerifyOTP />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route element={<Layout />}>
-          <Route 
-            path="/student-dashboard" 
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/student-dashboard"
             element={
               <ProtectedRoute allowedRoles={['user']}>
                 <StudentDashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/hosteler-dashboard" 
+          <Route
+            path="/hosteler-dashboard"
             element={
               <ProtectedRoute allowedRoles={['hosteler']}>
                 <HostelerDashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          <Route 
-            path="/admin-dashboard" 
+          <Route
+            path="/admin-dashboard"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <AdminDashboard />
               </ProtectedRoute >
-            } 
+            }
           />
         </Route>
         <Route path="*" element={<NotFound />} />
