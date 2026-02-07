@@ -7,7 +7,6 @@ exports.addHostel = async (req, res) => {
     let amenities = req.body.amenities;
     let roomTypes = req.body.roomTypes;
 
-    // Convert to array if single value
     if (!Array.isArray(amenities)) amenities = amenities ? [amenities] : [];
     if (!Array.isArray(roomTypes)) roomTypes = roomTypes ? [roomTypes] : [];
 
@@ -19,7 +18,9 @@ exports.addHostel = async (req, res) => {
       location,
       pricing,
       capacity,
-      images,
+      images = [],
+      popular = "false",
+      verified = "true"
     } = req.body;
 
     if (
@@ -53,6 +54,7 @@ exports.addHostel = async (req, res) => {
       });
     }
 
+    // Location validation (GeoJSON)
     if (
       !location.address ||
       !location.city ||
@@ -119,10 +121,10 @@ exports.addHostel = async (req, res) => {
     }
 
     const hostel = await Hostel.create({
-      name: name,
-      description: description,
+      name,
+      description,
       images,
-      owner: req.user, 
+      owner: req.user,
       location: {
         address: location.address,
         city: location.city,
@@ -138,7 +140,7 @@ exports.addHostel = async (req, res) => {
       gender,
       amenities,
       roomTypes,
-      popular: popular === "true" || popular === true,
+      popular: popular === "false" || popular === false,
       verified: verified === "true" || verified === true,
     });
 
@@ -153,6 +155,7 @@ exports.addHostel = async (req, res) => {
     });
   }
 };
+
 
 // Fetch All Hostels
 exports.getAllHostels = async (req, res) => {
@@ -204,11 +207,7 @@ exports.updateHostel = async (req, res) => {
       });
     }
 
-    const hostelerId = req.user;
-    console.log("Hosteler ID from token:", hostelerId);
-
     const hostel = await Hostel.findById(hostelId);
-
     if (!hostel) {
       return res.status(404).json({ 
         message: "Hostel not found.",
@@ -216,31 +215,27 @@ exports.updateHostel = async (req, res) => {
       });
     }
 
+  const hostelerId = req.user;
     if (hostel.owner !== hostelerId) {
       return res.status(403).json({ 
-        message: "You can only update your own hostel." 
-      });
-    }
+        message: "You can only update your own hostel.",
+        field: "authorization"
+       });
+     }
 
     const updateData = {};
 
-    // Handle new images
-    if (req.files && req.files.length > 0) {
-      const newImagesUrl = req.files.map(file => 
-        `${process.env.BACKEND_URL}/storage/${file.filename}`
-      );
-      const newImages = req.files.map(file => `${file.filename}`);
-      updateData.images = [...hostel.images, ...newImages];
-    }
+    const newImages = req.body.images ? (Array.isArray(req.body.images) ? req.body.images : [req.body.images]) : [];
+    updateData.images = [...hostel.images, ...newImages];
 
     if (req.body.name) updateData.name = req.body.name.trim();
     if (req.body.description) updateData.description = req.body.description.trim();
     if (req.body.contactNumber) updateData.contactNumber = req.body.contactNumber;
     if (req.body.gender) updateData.gender = req.body.gender;
 
-    if (req.body.location) updateData.location = JSON.parse(req.body.location);
-    if (req.body.pricing) updateData.pricing = JSON.parse(req.body.pricing);
-    if (req.body.capacity) updateData.capacity = JSON.parse(req.body.capacity);
+    if (req.body.location) updateData.location = req.body.location;
+    if (req.body.pricing) updateData.pricing = req.body.pricing;
+    if (req.body.capacity) updateData.capacity = req.body.capacity;
 
     if (req.body.amenities) {
       let amenities = req.body.amenities;
@@ -260,8 +255,8 @@ exports.updateHostel = async (req, res) => {
 
     const updatedHostel = await Hostel.findByIdAndUpdate(
       hostelId,
-      { $set: updateData }, // Use $set to update only provided fields
-      { new: true, runValidators: true } // Return the updated document and run schema validators
+      { $set: updateData }, 
+      { new: true, runValidators: true }
     );
 
     return res.status(200).json({
@@ -278,21 +273,31 @@ exports.updateHostel = async (req, res) => {
 
 // Delete Hostel 
 exports.deleteHostel = async (req, res) => {
-    const hostel = await Hostel.findById(req.params.id);
 
+  const hostelId = req.params.id;
+  if (!hostelId){
+    return res.status(400).json({
+      message: "Hostel ID is required.",
+      field: "id",
+    });
+  }
+  
+    const hostel = await Hostel.findById(hostelId);
     if (!hostel) {
       return res.status(404).json({ 
         message: "Hostel not found." 
       });
     }
 
-    if (hostel.owner !== req.user) {
+    const hostelerId = req.user;
+    if (hostel.owner !== hostelerId) {
       return res.status(403).json({ 
-        message: "You can only delete your own hostel." 
-      });
-    }
+        message: "You can only delete your own hostel.",
+        field: "authorization"
+       });
+     }
 
-    await Hostel.findByIdAndDelete(req.params.id);
+    await Hostel.findByIdAndDelete(hostelId);
 
     return res.status(200).json({
       message: "Hostel deleted successfully.",
