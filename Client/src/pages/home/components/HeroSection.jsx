@@ -1,15 +1,19 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, MapPin, Users } from "lucide-react";
 
 export default function HeroSection() {
+    const navigate = useNavigate();
     const [location, setLocation] = useState("");
     const [budget, setBudget] = useState("");
     const [gender, setGender] = useState("");
 
     const handleSearch = (e) => {
         e.preventDefault();
-        // Handle search logic here
-        console.log({ location, budget, gender });
+        const params = new URLSearchParams();
+        if (location) params.append('location', location);
+        if (gender) params.append('gender', gender);
+        navigate(`/search?${params.toString()}`);
     };
 
     return (
