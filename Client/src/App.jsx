@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Register from './pages/auth/Register'
 import Home from './pages/home/Home'
+import SearchPage from './pages/search/SearchPage'
 import Login from './pages/auth/Login'
 import ForgotPassword from './pages/auth/ForgotPassword'
 import VerifyOTP from './pages/auth/VerifyOTP'
@@ -25,6 +26,7 @@ function App() {
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route
             path="/student-dashboard"
             element={
