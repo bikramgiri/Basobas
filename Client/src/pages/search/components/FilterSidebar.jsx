@@ -4,6 +4,9 @@ import { Filter, X } from 'lucide-react';
 const locations = [
     "Baneshwor", "Kupondole", "Pulchowk", "Thamel", "Lazimpat", "Putalisadak", "Pokhara", "Chitwan"
 ];
+const room = [
+    "Single Room", "Double Room",
+];
 
 const amenitiesList = [
     { id: 'wifi', label: 'WiFi', icon: 'Wifi' },
@@ -17,6 +20,11 @@ const FilterSidebar = ({ filters, setFilters, maxPrice = 15000, minPrice = 3000 
     const handleLocationChange = (e) => {
         setFilters(prev => ({ ...prev, location: e.target.value }));
     };
+
+    const handleRoomTypeChange = (e) => {
+        setFilters(prev => ({ ...prev, roomType: e.target.value }));
+    };
+
 
     const handlePriceChange = (e) => {
         setFilters(prev => ({ ...prev, maxPrice: parseInt(e.target.value) }));
@@ -115,6 +123,23 @@ const FilterSidebar = ({ filters, setFilters, maxPrice = 15000, minPrice = 3000 
                             {g}
                         </button>
                     ))}
+                </div>
+            </div>
+
+            {/* Room Type */}
+            <div className="mb-8">
+                <label className="block text-sm font-semibold text-gray-700 mb-3">Room Type</label>
+                <div className="flex flex-wrap gap-2">
+                     <select
+                    value={filters.roomType}
+                    onChange={handleRoomTypeChange}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-gray-50 hover:bg-white transition-colors"
+                >
+                    <option value="">Any</option>
+                    {room.map(r => (
+                        <option key={r} value={r}>{r}</option>
+                    ))}
+                </select>
                 </div>
             </div>
 

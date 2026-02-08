@@ -4,56 +4,56 @@ import { STATUSES } from "../global/status";
 
 const authSlice = createSlice({
       name: "auth",
-      initialState:{
+      initialState: {
             data: [],
             status: STATUSES.IDLE,
             token: localStorage.getItem("token") || "",
             email: ""
       },
-      reducers:{
-            setUser: (state, action)=>{
+      reducers: {
+            setUser: (state, action) => {
                   state.data = action.payload;
             },
-            setStatus: (state, action)=>{
+            setStatus: (state, action) => {
                   state.status = action.payload;
             },
-            setToken: (state, action)=>{
+            setToken: (state, action) => {
                   state.token = action.payload;
-                  if(action.payload){
+                  if (action.payload) {
                         localStorage.setItem("token", action.payload)
                   } else {
                         localStorage.removeItem("token")
                   }
             },
-            logOut: (state)=>{
+            logOut: (state) => {
                   state.data = [],
-                  state.token = "",
-                  localStorage.removeItem("token"),
-                  localStorage.removeItem("userId"),
-                  state.status = STATUSES.IDLE
+                        state.token = "",
+                        localStorage.removeItem("token"),
+                        localStorage.removeItem("userId"),
+                        state.status = STATUSES.IDLE
             },
-            resetAuthStatus:(state)=>{
+            resetAuthStatus: (state) => {
                   state.status = STATUSES.LOADING
             },
             setEmail: (state, action) => {
-              state.email = action.payload;
+                  state.email = action.payload;
             }
       }
 })
 
-export const { setUser, setStatus, setToken, logOut, resetAuthStatus, setEmail} = authSlice.actions;
+export const { setUser, setStatus, setToken, logOut, resetAuthStatus, setEmail } = authSlice.actions;
 export default authSlice.reducer;
 
-export function registerUser(data){
-      return async function registerUserThunk(dispatch){
+export function registerUser(data) {
+      return async function registerUserThunk(dispatch) {
             dispatch(setStatus(STATUSES.LOADING))
-            try{
+            try {
                   const response = await API.post("/auth/register", data)
-                  if(response.status === 201){
+                  if (response.status === 201) {
                         console.log("Registration Response:", response.data.data.role);
                         dispatch(setStatus(STATUSES.SUCCESS))
                   }
-            } catch(error){
+            } catch (error) {
                   console.error("Registration Error:", error);
                   dispatch(setStatus(STATUSES.ERROR))
                   throw error;
@@ -61,14 +61,16 @@ export function registerUser(data){
       }
 }
 
-export function loginUser(data){
-      return async function loginUserThunk(dispatch){
+export function loginUser(data) {
+      return async function loginUserThunk(dispatch) {
             dispatch(setStatus(STATUSES.LOADING))
             try {
                   const response = await API.post("/auth/login", data)
-                  if(response.status === 200){
+                  if (response.status === 200) {
                         dispatch(setUser(response.data.data))
-                        localStorage.setItem("user", JSON.stringify(response.data.data))
+                        if (response.data.data) {
+                              localStorage.setItem("user", JSON.stringify(response.data.data))
+                        }
                         dispatch(setToken(response.data.token))
                         dispatch(setStatus(STATUSES.SUCCESS))
                   }
@@ -81,44 +83,44 @@ export function loginUser(data){
 }
 
 export function forgotPassword(data) {
-  return async function forgotPasswordThunk(dispatch) {
-    dispatch(setStatus(STATUSES.LOADING));
-    try {
-      const response = await API.post("/auth/forgotpassword", data);
-      dispatch(setEmail(response.data.data));
-      dispatch(setStatus(STATUSES.SUCCESS));
-    } catch (error) {
-      dispatch(setStatus(STATUSES.ERROR));
-      throw error; 
-    }
-  };
+      return async function forgotPasswordThunk(dispatch) {
+            dispatch(setStatus(STATUSES.LOADING));
+            try {
+                  const response = await API.post("/auth/forgotpassword", data);
+                  dispatch(setEmail(response.data.data));
+                  dispatch(setStatus(STATUSES.SUCCESS));
+            } catch (error) {
+                  dispatch(setStatus(STATUSES.ERROR));
+                  throw error;
+            }
+      };
 }
 
 export function verifyOTP(data) {
-  return async function verifyOTPThunk(dispatch) {
-    dispatch(setStatus(STATUSES.LOADING));
-    try {
-      const response = await API.post("/auth/verifyotp", data);
-      dispatch(setEmail(data.email));
-      dispatch(setStatus(STATUSES.SUCCESS));
-      return response; 
-    } catch (error) {
-      dispatch(setStatus(STATUSES.ERROR));
-      throw error; 
-    }
-  };
+      return async function verifyOTPThunk(dispatch) {
+            dispatch(setStatus(STATUSES.LOADING));
+            try {
+                  const response = await API.post("/auth/verifyotp", data);
+                  dispatch(setEmail(data.email));
+                  dispatch(setStatus(STATUSES.SUCCESS));
+                  return response;
+            } catch (error) {
+                  dispatch(setStatus(STATUSES.ERROR));
+                  throw error;
+            }
+      };
 }
 
 export function resetPassword(data) {
-  return async function resetPasswordThunk(dispatch) {
-    dispatch(setStatus(STATUSES.LOADING));
-    try {
-      const response = await API.post("/auth/resetpassword", data);
-      dispatch(setStatus(STATUSES.SUCCESS));
-      return response;
-    } catch (error) {
-      dispatch(setStatus(STATUSES.ERROR));
-      throw error; 
-    }
-  };
+      return async function resetPasswordThunk(dispatch) {
+            dispatch(setStatus(STATUSES.LOADING));
+            try {
+                  const response = await API.post("/auth/resetpassword", data);
+                  dispatch(setStatus(STATUSES.SUCCESS));
+                  return response;
+            } catch (error) {
+                  dispatch(setStatus(STATUSES.ERROR));
+                  throw error;
+            }
+      };
 }

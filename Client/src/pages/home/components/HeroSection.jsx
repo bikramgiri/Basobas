@@ -13,7 +13,7 @@ export default function HeroSection() {
         const params = new URLSearchParams();
         if (location) params.append('location', location);
         if (gender) params.append('gender', gender);
-        navigate(`/search?${params.toString()}`);
+        navigate(`/explore-hostel?${params.toString()}`);
     };
 
     return (
@@ -22,7 +22,7 @@ export default function HeroSection() {
             <div className="container mx-auto px-4 py-16 md:py-24">
                 <div className="max-w-3xl mx-auto text-center">
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                        Find Your Perfect Hostel in Nepal
+                        Find Your <span className="text-blue-600">Perfect Hostel</span> in Nepal
                     </h1>
                     <p className="text-lg md:text-xl text-gray-600 mb-12">
                         Search verified hostels near your college in Kathmandu, Pokhara, and across Nepal.

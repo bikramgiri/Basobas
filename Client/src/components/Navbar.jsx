@@ -21,7 +21,14 @@ const Navbar = () => {
 
   // Persistent login state
   const storedToken = localStorage.getItem("token");
-  const storedUser = JSON.parse(localStorage.getItem("user") || "null");
+  const storedUser = (() => {
+    try {
+      const item = localStorage.getItem("user");
+      return item === "undefined" ? null : JSON.parse(item || "null");
+    } catch {
+      return null;
+    }
+  })();
 
   const effectiveToken = token || storedToken;
   const effectiveUser = user || storedUser;
@@ -109,11 +116,11 @@ const Navbar = () => {
 
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/for-students" className="text-gray-600 hover:text-gray-900 transition-colors">
-              For Students
+            <Link to="/explore-hostel" className="text-gray-600 hover:text-gray-900 transition-colors">
+              Explore Hostel
             </Link>
-            <Link to="/list-property" className="text-gray-600 hover:text-gray-900 transition-colors">
-              List Your Property
+            <Link to="/list-hostel" className="text-gray-600 hover:text-gray-900 transition-colors">
+              List Your Hostel
             </Link>
           </div>
 
@@ -362,11 +369,11 @@ const Navbar = () => {
 
             {!isLoggedIn ? (
               <div className="space-y-3">
-                <Link to="/for-students" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                  For Students
+                <Link to="/explore-hostel" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  Explore Hostel
                 </Link>
-                <Link to="/list-property" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
-                  List Your Property
+                <Link to="/list-hostel" className="block px-2 py-3 text-gray-900 font-medium hover:text-blue-600" onClick={() => setIsOpen(false)}>
+                  List Your Hostel
                 </Link>
 
                 <Link to="/login" className="block w-full text-center py-3 text-blue-700 border-2 border-blue-700 rounded-lg hover:bg-blue-50 font-medium" onClick={() => setIsOpen(false)}>
