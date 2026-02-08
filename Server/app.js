@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors")
+const cookieParser = require("cookie-parser");
 const adminSeeder = require("./adminSeeder");
 const { connectDatabase } = require("./database/database");
 const app = express();
@@ -11,6 +12,9 @@ app.use(cors({
       origin: "http://localhost:5173",
       credentials: true
 }))
+
+// Cookie parser use for reading cookies
+app.use(cookieParser()); 
 
 // Database connection
 connectDatabase();
@@ -25,6 +29,8 @@ const hostelRoutes = require("./routes/hosteler/hostelRoutes")
 // Using Routes
 app.use("/auth", authRoutes)
 app.use("/hosteler", hostelRoutes)
+
+app.use("/storage", express.static("storage"));
 
 const PORT = process.env.PORT
 app.listen(PORT, ()=>{

@@ -4,6 +4,31 @@ const Hostel = require("../../model/hostler/hostelModel");
 exports.addHostel = async (req, res) => {
   try {
 
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({
+        message: "At least one hostel image is required",
+        field: "images",
+      });
+    }
+
+    const imagesUrl = req.files.map((file) => 
+      `${process.env.BACKEND_URL}/storage/${file.filename}`
+    );
+
+    const images = req.files.map(file => `${file.filename}`);
+   
+    let location, pricing, capacity;
+    try {
+      location = req.body.location ? JSON.parse(req.body.location) : null;
+      pricing = req.body.pricing ? JSON.parse(req.body.pricing) : null;
+      capacity = req.body.capacity ? JSON.parse(req.body.capacity) : null;
+    } catch (err) {
+      return res.status(400).json({
+        message: "Invalid JSON format for location, pricing, or capacity",
+        field: "general",
+      });
+    }
+
     let amenities = req.body.amenities;
     let roomTypes = req.body.roomTypes;
 
@@ -15,10 +40,6 @@ exports.addHostel = async (req, res) => {
       description,
       contactNumber,
       gender,
-      location,
-      pricing,
-      capacity,
-      images = [],
       popular = "false",
       verified = "true"
     } = req.body;
@@ -40,14 +61,14 @@ exports.addHostel = async (req, res) => {
       });
     }
 
-    if (name.trim().length < 5) { 
+    if (name.length < 5) { 
       return res.status(400).json({ 
         message: "Hostel name must be at least 5 characters long.", 
         field: "name" 
       });
     }
 
-    if (description.trim().length < 20) {
+    if (description.length < 20) {
       return res.status(400).json({ 
         message: "Description must be at least 20 characters long.", 
         field: "description" 
@@ -98,7 +119,7 @@ exports.addHostel = async (req, res) => {
       });
     }
 
-    if (!["boys", "girls", "mixed"].includes(gender)) {
+    if (!["boys", "girls", "any"].includes(gender)) {
       return res.status(400).json({ 
         message: "Invalid gender.", 
         field: "gender" 
@@ -225,17 +246,22 @@ exports.updateHostel = async (req, res) => {
 
     const updateData = {};
 
-    const newImages = req.body.images ? (Array.isArray(req.body.images) ? req.body.images : [req.body.images]) : [];
-    updateData.images = [...hostel.images, ...newImages];
+     if (req.files && req.files.length > 0) {
+      const newImagesUrl = req.files.map(file => 
+        `${process.env.BACKEND_URL}/storage/${file.filename}`
+      );
+      const newImages = req.files.map(file => `${file.filename}`);
+      updateData.images = [...hostel.images, ...newImages];
+    }
 
     if (req.body.name) updateData.name = req.body.name.trim();
     if (req.body.description) updateData.description = req.body.description.trim();
     if (req.body.contactNumber) updateData.contactNumber = req.body.contactNumber;
     if (req.body.gender) updateData.gender = req.body.gender;
 
-    if (req.body.location) updateData.location = req.body.location;
-    if (req.body.pricing) updateData.pricing = req.body.pricing;
-    if (req.body.capacity) updateData.capacity = req.body.capacity;
+    if (req.body.location) updateData.location = JSON.parse(req.body.location);
+    if (req.body.pricing) updateData.pricing = JSON.parse(req.body.pricing);
+    if (req.body.capacity) updateData.capacity = JSON.parse(req.body.capacity);
 
     if (req.body.amenities) {
       let amenities = req.body.amenities;

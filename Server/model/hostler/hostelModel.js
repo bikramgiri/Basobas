@@ -39,10 +39,17 @@ const hostelSchema = new Schema(
     description: {
       type: String,
       required: true,
+      trim: true,
     },
     images: {
       type: [String],
-      required: false
+      required: true,
+      validate: {
+        validator: function (v) {
+          return Array.isArray(v) && v.length > 0;
+        },
+        message: "At least one image is required.",
+      },
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -67,7 +74,7 @@ const hostelSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ["boys", "girls", "mixed"],
+      enum: ["boys", "girls", "any"],
       required: true,
     },
     amenities: {
