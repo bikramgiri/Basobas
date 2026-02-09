@@ -69,29 +69,33 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
     }
   ];
 
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
+    // Preload images
     heroSlides.forEach(slide => {
       const img = new Image();
       img.src = slide.image;
     });
-  }, []);
+
+    // Slideshow interval
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-500 flex flex-col lg:flex-row">
+    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-orange-50 flex flex-col lg:flex-row">
       {/* Hero Section - Full width on mobile, side-by-side on lg+, with slideshow effect */}
-      <div className="relative w-full lg:w-[60%] h-96 sm:h-screen overflow-hidden">
+      <div className="relative w-full lg:w-[60%] h-96 sm:h-screen overflow-hidden bg-gray-900">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === 0 ? 'opacity-100' : 'opacity-0'
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
               }`}
-            style={{
-              animation: index === 0
-                ? 'none'
-                : `fadeSlide 70s infinite ${index * 4}s`
-            }}
           >
             <div
               className="h-full w-full bg-cover bg-center"
@@ -113,7 +117,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       to="/hostels"
-                      className="px-10 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-xl transition-all hover:shadow-xl"
+                      className="px-10 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-xl transition-all hover:shadow-xl"
                     >
                       Browse Hostels
                     </Link>
@@ -129,17 +133,30 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
             </div>
           </div>
         ))}
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-0 right-0 z-20 flex justify-center gap-2">
+          {heroSlides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-2 h-2 rounded-full transition-all ${index === currentSlide ? "bg-white w-6" : "bg-white/50 hover:bg-white/80"
+                }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Form Section - Full width on mobile, half on lg+, centered vertically */}
-      <div className="w-full lg:w-[40%] flex items-center justify-center  py-10 lg:py-0 bg-green-100">
+      <div className="w-full lg:w-[40%] flex items-center justify-center  py-10 lg:py-0">
         <div className="bg-white p-6 sm:p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md sm:max-w-md lg:max-w-md border border-gray-200">
           <div className="text-center">
             <Link to="/" className="inline-flex items-center gap-2 mb-1">
-              <div className="w-9 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-2xl">B</span>
               </div>
-              <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-3xl font-bold text-blue-600">
                 Basobas
               </span>
             </Link>
@@ -160,8 +177,8 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                       type="button"
                       onClick={() => value({ ...values, role: "user" })}
                       className={`cursor-pointer p-2 border-2 rounded-lg font-medium transition-all ${values.role === "user"
-                          ? "border-blue-600 bg-blue-50 text-blue-700"
-                          : "border-gray-300 text-gray-700 hover:border-gray-400"
+                        ? "border-blue-600 bg-blue-50 text-blue-700"
+                        : "border-gray-300 text-gray-700 hover:border-gray-400"
                         }`}
                     >
                       Student
@@ -170,8 +187,8 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                       type="button"
                       onClick={() => value({ ...values, role: "hosteler" })}
                       className={`cursor-pointer p-2 border-2 rounded-lg font-medium transition-all ${values.role === "hosteler"
-                          ? "border-purple-600 bg-purple-50 text-purple-700"
-                          : "border-gray-300 text-gray-700 hover:border-gray-400"
+                        ? "border-blue-600 bg-blue-50 text-blue-700"
+                        : "border-gray-300 text-gray-700 hover:border-gray-400"
                         }`}
                     >
                       Hostel Owner
@@ -191,6 +208,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                     type="text"
                     id="username"
                     name="username"
+                    autoComplete="username"
                     value={values.username || ""}
                     onChange={onChange}
                     className="block w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder-gray-400 text-gray-900"
@@ -211,6 +229,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                 type="email"
                 id="email"
                 name="email"
+                autoComplete="email"
                 value={values.email}
                 onChange={onChange}
                 className="block w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder-gray-400 text-gray-900"
@@ -230,6 +249,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
+                autoComplete={type === 'login' ? 'current-password' : 'new-password'}
                 value={values.password}
                 onChange={onChange}
                 className="block w-full pl-10 pr-12 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-1 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all placeholder-gray-400 text-gray-900"
@@ -261,14 +281,14 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                       </div>
                       <p
                         className={`text-sm ${passwordStrength.label === "Weak"
-                            ? "text-red-600"
-                            : passwordStrength.label === "Fair"
-                              ? "text-orange-600"
-                              : passwordStrength.label === "Good"
-                                ? "text-yellow-600"
-                                : passwordStrength.label === "Strong"
-                                  ? "text-green-600"
-                                  : "text-indigo-600"
+                          ? "text-red-600"
+                          : passwordStrength.label === "Fair"
+                            ? "text-orange-600"
+                            : passwordStrength.label === "Good"
+                              ? "text-yellow-600"
+                              : passwordStrength.label === "Strong"
+                                ? "text-green-600"
+                                : "text-indigo-600"
                           }`}
                       >
                         Password Strength:{" "}
@@ -288,7 +308,6 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                   type="checkbox"
                   id="rememberandterms"
                   className="mt-1.5 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded cursor-pointer"
-                  required
                 />
                 <label
                   htmlFor="rememberandterms"
@@ -329,7 +348,7 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
 
             <button
               type="submit"
-              className="cursor-pointer w-full py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="cursor-pointer w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {type === "login" ? (<LogIn className="size-5" />) : (<UserPlus className="size-5" />)}
               {type === "login" ? "Sign In" : "Create Account"}
@@ -368,20 +387,20 @@ const AuthForm = ({ type = "login || register", onSubmit, onChange, values, valu
                 }
                 className="cursor-pointer flex items-center justify-center gap-3 bg-blue-100 border border-gray-300 rounded-lg py-3.5 px-4 shadow-sm hover:bg-blue-200 transition-colors text-sm font-medium text-gray-700"
               >
-                <FcGoogle className="h-6 w-6 flex-shrink-0" />
+                <FcGoogle className="h-6 w-6 shrink-0" />
                 Google
               </button>
 
               {/* Facebook */}
               <button className="cursor-pointer flex items-center justify-center gap-3 bg-blue-100 border border-gray-300 rounded-lg py-3.5 px-4 shadow-sm hover:bg-blue-200 transition-colors text-sm font-medium text-gray-700">
-                <FaFacebook className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                <FaFacebook className="h-6 w-6 text-blue-600 shrink-0" />
                 Facebook
               </button>
 
               {/* GitHub */}
               <button className="cursor-pointer flex items-center justify-center gap-3 bg-blue-100 border border-gray-300 rounded-lg py-3.5 px-4 shadow-sm hover:bg-blue-200 transition-colors text-sm font-medium text-gray-700">
                 <svg
-                  className="h-6 w-6 text-gray-900 flex-shrink-0"
+                  className="h-6 w-6 text-gray-900 shrink-0"
                   viewBox="0 0 24 24"
                   fill="currentColor"
                 >

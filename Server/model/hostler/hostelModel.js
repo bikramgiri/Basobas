@@ -54,7 +54,7 @@ const hostelSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      required: false,
+      required: true,
     },
     location: {
       type: locationSchema,

@@ -61,8 +61,7 @@ if (role && !validRoles.includes(role)) {
   });
 
   res.status(201).json({
-    message: "Registered successful",
-    data: userData,
+    message: "Registered successful"
   });
   } catch (error) {
     return res.status(500).json({
@@ -121,7 +120,6 @@ exports.userLogin = async (req, res) => {
 
     res.status(200).json({
       message: "Login successful",
-      data: existingUser,
       token: token,
     });
   };

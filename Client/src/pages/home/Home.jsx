@@ -1,19 +1,17 @@
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import HowItWork from "../auth/components/HowItWork";
-import CTASection from "./components/CTASection";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
+import HeroSection from "./components/HeroSection";
+import RecentHostels from "./components/RecentHostels";
+import Testimonials from "./components/Testimonials";
+import OwnerCTA from "./components/OwnerCTA";
+import HowItWork from "./components/HowItWork";
 
 export default function Home() {
     return (
-        <div className="min-h-screen">
-            <Navbar />
-            <Hero />
-            <Features />
-            <HowItWork/>
-            <CTASection/>
-            <Footer />
+        <div className="min-h-screen bg-white">
+            <HeroSection />
+            <RecentHostels />
+            <HowItWork />
+            <Testimonials />
+            {/* <OwnerCTA /> */}
         </div>
     );
 }

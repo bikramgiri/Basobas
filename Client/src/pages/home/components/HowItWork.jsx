@@ -35,7 +35,7 @@ const  HowItWork = ()=>{
         <div className="grid md:grid-cols-3 gap-8">
           {steps.map((item, index) => (
             <div key={index} className="text-center relative">
-              <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 text-white text-2xl font-bold rounded-full mb-6">
+              <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-500 text-white text-2xl font-bold rounded-full mb-6">
                 {item.step}
               </div>
               <h3 className="text-2xl font-semibold text-gray-900 mb-3">
@@ -43,7 +43,7 @@ const  HowItWork = ()=>{
               </h3>
               <p className="text-gray-600">{item.description}</p>
               {index < 2 && ( 
-                <div className="hidden md:block absolute top-10 left-[60%] w-[88%] h-0.5 bg-gradient-to-r from-blue-300 to-purple-300"></div>
+                <div className="hidden md:block absolute top-10 left-[60%] w-[88%] h-0.5 bg-blue-300"></div>
               )}
             </div>
           ))}

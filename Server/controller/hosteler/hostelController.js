@@ -145,7 +145,7 @@ exports.addHostel = async (req, res) => {
       name,
       description,
       images,
-      owner: req.user,
+      owner: req.user._id,
       location: {
         address: location.address,
         city: location.city,
@@ -236,8 +236,8 @@ exports.updateHostel = async (req, res) => {
       });
     }
 
-  const hostelerId = req.user;
-    if (hostel.owner !== hostelerId) {
+  const hostelerId = req.user._id;
+    if (hostel.owner.toString() !== hostelerId.toString()) {
       return res.status(403).json({ 
         message: "You can only update your own hostel.",
         field: "authorization"
@@ -315,8 +315,8 @@ exports.deleteHostel = async (req, res) => {
       });
     }
 
-    const hostelerId = req.user;
-    if (hostel.owner !== hostelerId) {
+    const hostelerId = req.user._id;
+    if (hostel.owner.toString() !== hostelerId.toString()) {
       return res.status(403).json({ 
         message: "You can only delete your own hostel.",
         field: "authorization"
