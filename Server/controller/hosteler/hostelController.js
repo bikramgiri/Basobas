@@ -1,4 +1,4 @@
-const Hostel = require("../../model/hostler/hostelModel");
+const Hostel = require("../../model/hostelModel");
 
 // Add Hostel
 exports.addHostel = async (req, res) => {
@@ -41,7 +41,7 @@ exports.addHostel = async (req, res) => {
       contactNumber,
       gender,
       popular = "false",
-      verified = "true"
+      verified = "false"
     } = req.body;
 
     if (
@@ -68,7 +68,7 @@ exports.addHostel = async (req, res) => {
       });
     }
 
-    if (description.length < 20) {
+    if (description.length < 10) {
       return res.status(400).json({ 
         message: "Description must be at least 20 characters long.", 
         field: "description" 
@@ -162,7 +162,7 @@ exports.addHostel = async (req, res) => {
       amenities,
       roomTypes,
       popular: popular === "false" || popular === false,
-      verified: verified === "true" || verified === true,
+      verified: verified === "false" || verified === false,
     });
 
     return res.status(201).json({
@@ -181,8 +181,17 @@ exports.addHostel = async (req, res) => {
 // Fetch All Hostels
 exports.getAllHostels = async (req, res) => {
     const hostels = await Hostel.find()
-      .populate('owner', 'username email') 
-      .sort({ createdAt: -1 }); 
+    .populate("owner", "username email _id")               // populate owner object
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "userInfo",
+        select: "username email _id",
+      },
+      options: { sort: { createdAt: -1 } },
+    })
+    .select("-__v -rating") 
+    .sort({ createdAt: -1 });
 
     return res.status(200).json({
       message: "Hostels fetched successfully.",
@@ -202,8 +211,16 @@ exports.getSingleHostel = async (req, res) => {
   }
 
     const hostel = await Hostel.findById(hostelId)
-      .populate('owner', 'username email')
-      .populate('reviews.user', 'username');
+    .populate("owner", "username email _id")
+    .populate({
+      path: "reviews",
+      populate: {
+        path: "userInfo",
+        select: "username email _id",
+      },
+      options: { sort: { createdAt: -1 } },
+    })
+    .select("-__v -rating"); 
 
     if (!hostel) {
       return res.status(404).json({

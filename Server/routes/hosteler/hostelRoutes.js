@@ -11,7 +11,7 @@ router.route("/hostel")
 .get(catchError(getAllHostels))
 
 router.route("/hostel/:id")
-.get(catchError(getSingleHostel))
+.get(getSingleHostel)
 .patch(isAuthenticated, permitTo('hosteler'), upload.array('images', 10), catchError(updateHostel))
 .delete(isAuthenticated, permitTo('hosteler'), deleteHostel)
 
