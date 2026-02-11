@@ -24,7 +24,7 @@ const authRoutes = require("./routes/auth/authRoutes")
 // Using Routes
 app.use("/auth", authRoutes)
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4000
 const server = app.listen(PORT, ()=>{
       console.log(`Server is running on port ${PORT}`);
 })

@@ -1,6 +1,6 @@
 import { MapPin, Star, Check } from "lucide-react";
 import ImageWithFallback from "./ImageWithFallback";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const hostels = [
     {
@@ -84,6 +84,12 @@ const hostels = [
 ];
 
 export default function RecentHostels() {
+    const navigate = useNavigate();
+
+    const handleViewDetails = (hostel) => {
+        navigate(`/hostel/${hostel.id}`, { state: { hostel } });
+    };
+
     return (
         <section className="py-16 bg-gray-50">
             <div className="container mx-auto px-4">
@@ -95,13 +101,13 @@ export default function RecentHostels() {
                         {/* <p className="text-lg text-gray-600">
                             Find verified hostels with real photos and genuine student reviews
                         </p> */}
-                        
+
                         <Link to="/explore-hostel" className="px-8 py-3 underline text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium cursor-pointer">
                             View All Hostels
                         </Link>
-                    
+
                     </div>
-                    
+
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {hostels.map((hostel) => (
@@ -175,7 +181,10 @@ export default function RecentHostels() {
                                         </div>
                                     </div>
 
-                                    <button className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors cursor-pointer">
+                                    <button
+                                        onClick={() => handleViewDetails(hostel)}
+                                        className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors cursor-pointer"
+                                    >
                                         View Details
                                     </button>
                                 </div>
