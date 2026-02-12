@@ -14,6 +14,7 @@ import HostelerDashboard from './pages/hostelerDashboard/HostelerDashboard'
 import AdminDashboard from './pages/adminDashboard/AdminDashboard'
 import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProjectedRoute'
+import ViewDetails from './pages/home/components/ViewDetails'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/explore-hostel" element={<SearchPage />} />
+          <Route path="/hostel/:id" element={<ViewDetails />} />
           <Route
             path="/student-dashboard"
             element={

@@ -6,17 +6,53 @@ import MapView from './components/MapView';
 import { hostels } from './mockData';
 import { SlidersHorizontal } from 'lucide-react';
 
+const parseBudgetToMaxPrice = (budget) => {
+    if (!budget) return 15000;
+
+    if (budget.includes('+')) {
+        const min = parseInt(budget, 10);
+        return Number.isNaN(min) ? 15000 : Math.max(min, 15000);
+    }
+
+    const [, max] = budget.split('-');
+    const parsedMax = parseInt(max, 10);
+    return Number.isNaN(parsedMax) ? 15000 : parsedMax;
+};
+
+const normalizeGender = (gender) => {
+    if (!gender) return '';
+
+    const lower = gender.toLowerCase();
+    if (lower === 'boys') return 'Boys Only';
+    if (lower === 'girls') return 'Girls Only';
+    if (lower === 'mixed') return 'Mixed';
+    return gender;
+};
+
 const SearchPage = () => {
     const [searchParams] = useSearchParams();
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+    const locationParam = (searchParams.get('location') || '').trim();
+    const budgetParam = searchParams.get('budget') || '';
+    const genderParam = normalizeGender(searchParams.get('gender') || '');
 
     // Initial State from URL params or defaults
     const [filters, setFilters] = useState({
-        location: searchParams.get('location') || '',
-        maxPrice: 15000, // Default max
-        gender: searchParams.get('gender') || '',
-        amenities: []
+        location: locationParam,
+        maxPrice: parseBudgetToMaxPrice(budgetParam),
+        gender: genderParam,
+        amenities: [],
+        roomType: ''
     });
+
+    useEffect(() => {
+        setFilters((prev) => ({
+            ...prev,
+            location: locationParam,
+            maxPrice: parseBudgetToMaxPrice(budgetParam),
+            gender: genderParam
+        }));
+    }, [locationParam, budgetParam, genderParam]);
 
     // Filter Logic
     const filteredHostels = useMemo(() => {
@@ -115,7 +151,7 @@ const SearchPage = () => {
                                             Try adjusting your filters or price range to see more results.
                                         </p>
                                         <button
-                                            onClick={() => setFilters({ location: '', maxPrice: 15000, gender: '', amenities: [] })}
+                                            onClick={() => setFilters({ location: '', maxPrice: 15000, gender: '', amenities: [], roomType: '' })}
                                             className="mt-6 text-blue-600 font-medium hover:underline"
                                         >
                                             Clear all filters
