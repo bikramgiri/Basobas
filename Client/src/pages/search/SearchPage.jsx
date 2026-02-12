@@ -1,9 +1,9 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import FilterSidebar from './components/FilterSidebar';
-import HostelCard from './components/HostelCard';
+import HostelCard from '../../components/HostelCard';
 import MapView from './components/MapView';
-import { hostels } from './mockData';
+import { hostels } from '../../data/hostelData';
 import { SlidersHorizontal } from 'lucide-react';
 
 const parseBudgetToMaxPrice = (budget) => {
