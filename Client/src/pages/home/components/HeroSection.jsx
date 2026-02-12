@@ -11,8 +11,10 @@ export default function HeroSection() {
     const handleSearch = (e) => {
         e.preventDefault();
         const params = new URLSearchParams();
-        if (location) params.append('location', location);
-        if (gender) params.append('gender', gender);
+        const trimmedLocation = location.trim();
+        if (trimmedLocation) params.append("location", trimmedLocation);
+        if (budget) params.append("budget", budget);
+        if (gender) params.append("gender", gender);
         navigate(`/explore-hostel?${params.toString()}`);
     };
 
@@ -32,32 +34,22 @@ export default function HeroSection() {
                     {/* Search Form */}
                     <form onSubmit={handleSearch} className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                            {/* Location */}
                             <div className="relative">
                                 <label className="block text-left text-sm font-medium text-gray-700 mb-2">
                                     Location
                                 </label>
                                 <div className="relative">
                                     <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                    <select
+                                    <input
+                                        type="text"
                                         value={location}
                                         onChange={(e) => setLocation(e.target.value)}
-                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none appearance-none bg-white"
-                                    >
-                                        <option value="">Select location</option>
-                                        <option value="baneshwor">Baneshwor</option>
-                                        <option value="kupondole">Kupondole</option>
-                                        <option value="pulchowk">Pulchowk</option>
-                                        <option value="thamel">Thamel</option>
-                                        <option value="lazimpat">Lazimpat</option>
-                                        <option value="putalisadak">Putalisadak</option>
-                                        <option value="pokhara">Pokhara</option>
-                                        <option value="chitwan">Chitwan</option>
-                                    </select>
+                                        placeholder="Search by area or city"
+                                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-white"
+                                    />
                                 </div>
                             </div>
 
-                            {/* Budget */}
                             <div className="relative">
                                 <label className="block text-left text-sm font-medium text-gray-700 mb-2">
                                     Budget (Monthly)
@@ -80,7 +72,6 @@ export default function HeroSection() {
                                 </div>
                             </div>
 
-                            {/* Gender */}
                             <div className="relative">
                                 <label className="block text-left text-sm font-medium text-gray-700 mb-2">
                                     Preference
@@ -93,9 +84,9 @@ export default function HeroSection() {
                                         className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none appearance-none bg-white"
                                     >
                                         <option value="">Any</option>
-                                        <option value="boys">Boys Only</option>
-                                        <option value="girls">Girls Only</option>
-                                        <option value="mixed">Mixed</option>
+                                        <option value="Boys Only">Boys Only</option>
+                                        <option value="Girls Only">Girls Only</option>
+                                        <option value="Mixed">Mixed</option>
                                     </select>
                                 </div>
                             </div>
