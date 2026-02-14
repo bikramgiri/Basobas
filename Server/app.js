@@ -26,11 +26,13 @@ adminSeeder();
 const authRoutes = require("./routes/auth/authRoutes")
 const hostelRoutes = require("./routes/hosteler/hostelRoutes")
 const reviewRoutes = require("./routes/user/reviewRoutes")
+const whishlistRoutes = require("./routes/user/whishlistRoutes")
 
 // Using Routes
 app.use("/auth", authRoutes)
 app.use("/hosteler", hostelRoutes)
 app.use("/user", reviewRoutes)
+app.use("/user", whishlistRoutes)
 
 // Static folder for images
 app.use("/storage", express.static("storage"));
